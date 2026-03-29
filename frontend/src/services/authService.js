@@ -1,9 +1,10 @@
 import axios from "axios";
 import instance from "./axiosInstance";
-const API_URL = "http://127.0.0.1:8000/api/";
+
+const API_URL = "https://vc-backend-phpt.onrender.com/api";
 
 export const login = async (username, password) => {
-    const response = await axios.post(`${API_URL}token/`, {
+    const response = await axios.post(`${API_URL}/token/`, {
         username,
         password
     });
