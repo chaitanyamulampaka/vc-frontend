@@ -1,0 +1,208 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/LandingPage.css';
+import Header from '../components/Header';
+import heroImg from '../assets/7138775.webp';
+import art_spo_img from '../assets/TNIE_import_2018_6_10_original_year-old_Etikoppaka.avif';
+/* ─── Sticky Header (hidden by default, appears on scroll-up) ── */
+
+
+/* ─── Animated counter ──────────────────────────────────────── */
+const Counter = ({ to, suffix = '', start }) => {
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    const dur = 1800;
+    let t0 = null;
+    const tick = (ts) => {
+      if (!t0) t0 = ts;
+      const p = Math.min((ts - t0) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      setVal(Math.floor(ease * to));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [start, to]);
+  return <>{val}{suffix}</>;
+};
+
+/* ─── Landing Page ──────────────────────────────────────────── */
+export default function LandingPage() {
+  const [statsOn, setStatsOn] = useState(false);
+  const statsRef = useRef(null);
+
+  useEffect(() => {
+    // Scroll reveal
+    const revealObs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('is-visible'); }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal-on-scroll').forEach((el) => revealObs.observe(el));
+
+    // Stats
+    const statsObs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setStatsOn(true); },
+      { threshold: 0.35 }
+    );
+    if (statsRef.current) statsObs.observe(statsRef.current);
+
+    return () => { revealObs.disconnect(); statsObs.disconnect(); };
+  }, []);
+
+  return (
+    <div className="landing-container">
+      <Header />
+
+      {/* ══ HERO ══════════════════════════════════════════════ */}
+      <section className="hero-section">
+        <div className="hero-bg"
+          style={{ backgroundImage: `url(${heroImg})` }}>
+        </div>
+        <div className="hero-overlay"></div>
+        <div className="hero-grain"></div>
+
+        <div className="hero-content reveal-on-scroll">
+          <div className="hero-badge">
+            <span className="badge-pulse"></span>
+            Etikoppaka · Andhra Pradesh · GI Tagged
+          </div>
+          <h1>5,000 Years of<br />Lacquer &amp; Light.</h1>
+          <p>Where ivory-soft wood meets living colour —<br />straight from artisan hands on the Varaha River.</p>
+          <div className="hero-ctas">
+            <Link to="/products" className="btn-primary">
+              Explore the Toys
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </Link>
+            <Link to="/story" className="btn-ghost">Our Village</Link>
+          </div>
+        </div>
+
+        <div className="hero-scroll-hint">
+          <div className="scroll-track"><div className="scroll-thumb"></div></div>
+          <span>Scroll</span>
+        </div>
+      </section>
+
+      {/* ══ STATS ═════════════════════════════════════════════ */}
+      <section className="stats-bar reveal-on-scroll" ref={statsRef}>
+        {[
+          { to: 400, suffix: '+', label: 'Years of Tradition' },
+          { to: 300,  suffix: '+', label: 'Artisan Families'   },
+          { to: 0,    suffix: '',  label: 'Synthetic Dyes Used' },
+          { to: 1,    suffix: '',  label: 'GI Certification'    },
+        ].map((s, i) => (
+          <React.Fragment key={i}>
+            {i > 0 && <div className="stats-sep" />}
+            <div className="stat-item">
+              <span className="stat-num"><Counter to={s.to} suffix={s.suffix} start={statsOn} /></span>
+              <span className="stat-lbl">{s.label}</span>
+            </div>
+          </React.Fragment>
+        ))}
+      </section>
+
+      {/* ══ FEATURES ══════════════════════════════════════════ */}
+      <section className="features-section">
+        {[
+          { icon:'🪵', title:'Ankudi Wood',        body:'Hand-turned on a foot-powered lathe from Wrightia tinctoria — a soft wood uniquely suited to the lacquer-on-lathe technique.' },
+          { icon:'🌿', title:'Natural Lac & Dyes', body:'Vivid colour from turmeric, indigo, kumkum & pure lac resin. Zero synthetic chemicals — safe for children, gentle on the earth.' },
+          { icon:'🤝', title:'Direct from Artisan',body:'Every rupee goes straight to the craftsperson\'s family. No middlemen — your purchase sustains a living, breathing tradition.' },
+        ].map((f, i) => (
+          <div key={i} className={`feature-card reveal-on-scroll fade-up delay-${i+1}`}>
+            <div className="feat-icon-ring">{f.icon}</div>
+            <h3>{f.title}</h3>
+            <p>{f.body}</p>
+          </div>
+        ))}
+      </section>
+
+      {/* ══ ARTISAN SPOTLIGHT ═════════════════════════════════ */}
+      <section className="spotlight reveal-on-scroll">
+        <div className="spotlight-img-wrap">
+          <img
+            src={heroImg} 
+            alt="Artisan" />
+          <div className="spotlight-chip">Est. 3000 BCE</div>
+        </div>
+        <div className="spotlight-body">
+          <span className="eyebrow">Meet the Makers</span>
+          <h2>A Family's Legacy<br />in Every Turn</h2>
+          <blockquote>
+            "The lac speaks when the wood spins. My father taught me — the colour must breathe, never be forced."
+          </blockquote>
+          <p className="attr">— Subrahmanyam Rao, 3rd-generation craftsman, Etikoppaka</p>
+          <p className="body-text">
+            Etikoppaka village on the banks of the Varaha River has been home to this GI-tagged craft for over five millennia. When you shop here, you connect directly with families who have kept this art alive — and help it thrive for the next generation.
+          </p>
+          <Link to="/artist-dashboard" className="btn-outline">Sell as an Artisan →</Link>
+        </div>
+      </section>
+
+      {/* ══ PROCESS ═══════════════════════════════════════════ */}
+      <section className="process-section">
+        <div className="section-head reveal-on-scroll">
+          <span className="eyebrow">The Craft</span>
+          <h2>The Making of a Toy</h2>
+          <div className="deco-line"></div>
+          <p className="sub">A centuries-old process, unchanged — and unrepeatable by machine.</p>
+        </div>
+        <div className="process-track">
+          {[
+            { n:'01', title:'Harvest the Wood',     desc:'Ankudi branches are hand-selected, dried naturally, and cut into blanks sized for each toy form.' },
+            { n:'02', title:'Turn on the Lathe',    desc:'A foot-powered lathe shapes the wood while the artisan presses lac directly — friction melts it on.' },
+            { n:'03', title:'Layer Natural Colour', desc:'Plant-based dyes applied in successive coats, each burnished to a living sheen that deepens over time.' },
+          ].map((s, i) => (
+            <React.Fragment key={s.n}>
+              {i > 0 && <div className="process-connector"><div className="connector-line"></div></div>}
+              <div className={`process-step reveal-on-scroll fade-up delay-${i+1}`}>
+                <span className="proc-num">{s.n}</span>
+                <h4>{s.title}</h4>
+                <p>{s.desc}</p>
+              </div>
+            </React.Fragment>
+          ))}
+        </div>
+      </section>
+
+      {/* ══ CATEGORIES ════════════════════════════════════════ */}
+      
+
+      {/* ══ GI TAG TRUST ══════════════════════════════════════ */}
+      <section className="gi-section reveal-on-scroll">
+        <div className="gi-seal">
+          <svg viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="36" stroke="#C8963E" strokeWidth="1.5"/>
+            <circle cx="40" cy="40" r="28" stroke="#C8963E" strokeWidth="0.7" strokeDasharray="3 3"/>
+            <path d="M27 40l9 9L53 29" stroke="#C8963E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+        <div className="gi-body">
+          <span className="gi-tag-label">Geographical Indication (GI) Tagged</span>
+          <h2>Authenticity You Can Feel</h2>
+          <p>Every product on this platform is verified to carry India's official GI tag — guaranteeing it was genuinely handcrafted in Etikoppaka village using traditional methods. No imitations, no shortcuts.</p>
+        </div>
+      </section>
+
+      {/* ══ NEWSLETTER ════════════════════════════════════════ */}
+      <section className="newsletter-section reveal-on-scroll">
+        <div className="nl-pattern"></div>
+        <div className="nl-body">
+          <span className="eyebrow light">Join the Community</span>
+          <h2>Be Part of the Story</h2>
+          <p>Artisan updates, behind-the-craft stories, and first access to limited festival batches — straight from Etikoppaka to your inbox.</p>
+          <form className="nl-form" onSubmit={(e) => e.preventDefault()}>
+            <input type="email" placeholder="Your email address" required />
+            <button type="submit" className="btn-primary">Subscribe</button>
+          </form>
+          <p className="nl-note">No spam. Unsubscribe anytime.</p>
+        </div>
+      </section>
+
+      {/* ══ FOOTER ════════════════════════════════════════════ */}
+      
+
+    </div>
+  );
+}
