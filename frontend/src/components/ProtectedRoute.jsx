@@ -14,7 +14,7 @@ function ProtectedRoute({ children, allowedRoles }) {
             !allowedRoles.includes(user.role) &&
             !(allowedRoles.includes("admin") && isAdmin)
         ) {
-            return <Navigate to="/" />;
+            return <Navigate to="/login" />;
         }
     }
 

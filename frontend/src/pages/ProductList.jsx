@@ -1,28 +1,80 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import ProductCard from "../components/ProductCard";
-import instance from "../services/axiosInstance";   
+import instance from "../services/axiosInstance";
+import "../styles/ProductList.css";
+
+const FILTERS = ["All", "In Stock"];
+
+const Skeleton = () => (
+  <>
+    {Array.from({ length: 8 }).map((_, i) => (
+      <div key={i} className="pl-skel" />
+    ))}
+  </>
+);
+
 function ProductList() {
   const [products, setProducts] = useState([]);
+  const [loading,  setLoading]  = useState(true);
+  const [active,   setActive]   = useState("All");
 
   useEffect(() => {
     instance.get("products/")
-      .then(res => setProducts(res.data))
-      .catch(err => console.log(err));
+      .then(res => { setProducts(res.data); setLoading(false); })
+      .catch(() => setLoading(false));
   }, []);
 
-  return (
-    <div className="max-w-7xl mx-auto py-12 px-4">
-      <h1 className="text-3xl md:text-4xl font-bold text-center mb-12"
-          style={{ color: "#5a3921", fontFamily: "Playfair Display" }}>
-        Handcrafted Treasures from Etikoppaka
-      </h1>
+  const filtered = products.filter(p => {
+    if (active === "In Stock") return p.stock > 0;
+    if (active === "On Sale")  return !!p.oldprice;
+    return true;
+  });
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        {products.map(product => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+  return (
+    <div className="pl-page">
+
+      {/* Header */}
+      <div className="pl-header">
+        <div>
+ 
+          
+          {!loading && (
+            <p className="pl-count">
+              {filtered.length} piece{filtered.length !== 1 ? "s" : ""}
+            </p>
+          )}
+        </div>
+
+        <div className="pl-filters">
+          {FILTERS.map(f => (
+            <button
+              key={f}
+              className={`pl-filter${active === f ? " on" : ""}`}
+              onClick={() => setActive(f)}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
       </div>
+
+      {/* Grid */}
+      <div className="pl-grid">
+        {loading ? (
+          <Skeleton />
+        ) : filtered.length === 0 ? (
+          <div className="pl-empty">No pieces found.</div>
+        ) : (
+          filtered.map((product, i) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              animDelay={i * 0.04}
+            />
+          ))
+        )}
+      </div>
+
     </div>
   );
 }

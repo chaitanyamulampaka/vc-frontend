@@ -193,20 +193,20 @@
 }
 
 .logout-btn {
-  display: block;
-  text-align: center;
-  background: var(--terra, #B85042);
-  color: #fff !important;
-  text-decoration: none;
-  padding: 10px;
+  color: #2A363B !important;
+  padding: 10px 12px;
   border-radius: 4px;
-  font-size: 0.9rem;
-  transition: background 0.3s;
+  transition: all 0.2s ease;
+  background-color: #B85042;
+  
 }
 
 .logout-btn:hover {
-  background: var(--terra-dark, #8B3A2E);
+  background-color: #f5f5f5;
+  color: #B85042 !important;
 }
+
+
 
 /* ═══════════════════════════════════════════════════════════════
    MOBILE MENU & OVERRIDES
@@ -249,4 +249,9 @@
   .profile-dropdown {
     right: -40px; /* Adjust dropdown position on mobile so it doesn't go off screen */
   }
+}
+
+/* Always show on non-home pages */
+.site-header.always-visible {
+  transform: translateY(0);
 }

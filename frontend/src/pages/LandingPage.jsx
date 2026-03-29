@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/LandingPage.css';
 import Header from '../components/Header';
+import heroImg from '../assets/7138775.webp';
+import art_spo_img from '../assets/TNIE_import_2018_6_10_original_year-old_Etikoppaka.avif';
 /* ─── Sticky Header (hidden by default, appears on scroll-up) ── */
 
 
@@ -53,7 +55,9 @@ export default function LandingPage() {
 
       {/* ══ HERO ══════════════════════════════════════════════ */}
       <section className="hero-section">
-        <div className="hero-bg"></div>
+        <div className="hero-bg"
+          style={{ backgroundImage: `url(${heroImg})` }}>
+        </div>
         <div className="hero-overlay"></div>
         <div className="hero-grain"></div>
 
@@ -71,7 +75,7 @@ export default function LandingPage() {
                 <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
               </svg>
             </Link>
-            <Link to="/about" className="btn-ghost">Our Village</Link>
+            <Link to="/story" className="btn-ghost">Our Village</Link>
           </div>
         </div>
 
@@ -84,8 +88,8 @@ export default function LandingPage() {
       {/* ══ STATS ═════════════════════════════════════════════ */}
       <section className="stats-bar reveal-on-scroll" ref={statsRef}>
         {[
-          { to: 5000, suffix: '+', label: 'Years of Tradition' },
-          { to: 120,  suffix: '+', label: 'Artisan Families'   },
+          { to: 400, suffix: '+', label: 'Years of Tradition' },
+          { to: 300,  suffix: '+', label: 'Artisan Families'   },
           { to: 0,    suffix: '',  label: 'Synthetic Dyes Used' },
           { to: 1,    suffix: '',  label: 'GI Certification'    },
         ].map((s, i) => (
@@ -118,9 +122,8 @@ export default function LandingPage() {
       <section className="spotlight reveal-on-scroll">
         <div className="spotlight-img-wrap">
           <img
-            src="https://images.unsplash.com/photo-1530968033775-2c92736b131e?auto=format&fit=crop&q=80"
-            alt="Etikoppaka artisan at a lathe"
-          />
+            src={heroImg} 
+            alt="Artisan" />
           <div className="spotlight-chip">Est. 3000 BCE</div>
         </div>
         <div className="spotlight-body">
@@ -133,7 +136,7 @@ export default function LandingPage() {
           <p className="body-text">
             Etikoppaka village on the banks of the Varaha River has been home to this GI-tagged craft for over five millennia. When you shop here, you connect directly with families who have kept this art alive — and help it thrive for the next generation.
           </p>
-          <Link to="/register" className="btn-outline">Sell as an Artisan →</Link>
+          <Link to="/artist-dashboard" className="btn-outline">Sell as an Artisan →</Link>
         </div>
       </section>
 
@@ -164,31 +167,7 @@ export default function LandingPage() {
       </section>
 
       {/* ══ CATEGORIES ════════════════════════════════════════ */}
-      <section className="categories-section">
-        <div className="section-head reveal-on-scroll">
-          <span className="eyebrow">Collections</span>
-          <h2>Shop by Category</h2>
-          <div className="deco-line"></div>
-        </div>
-        <div className="cat-grid">
-          {[
-            { slug:'toys',      label:'Lacquer Toys',      sub:'For play & décor', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80' },
-            { slug:'home-decor',label:'Home Décor',        sub:'Walls, shelves & tables', img:'https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&q=80' },
-            { slug:'gifting',   label:'Gift Sets',         sub:'Curated for loved ones', img:'https://images.unsplash.com/photo-1606722590583-6951b5ea92ad?auto=format&fit=crop&q=80' },
-          ].map((c, i) => (
-            <Link key={c.slug} to={`/products?category=${c.slug}`}
-              className={`cat-card reveal-on-scroll fade-up delay-${i+1}`}>
-              <img src={c.img} alt={c.label} className="cat-img" />
-              <div className="cat-overlay"></div>
-              <div className="cat-text">
-                <p className="cat-sub">{c.sub}</p>
-                <h3>{c.label}</h3>
-                <span className="cat-arrow">→</span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+      
 
       {/* ══ GI TAG TRUST ══════════════════════════════════════ */}
       <section className="gi-section reveal-on-scroll">
@@ -222,74 +201,7 @@ export default function LandingPage() {
       </section>
 
       {/* ══ FOOTER ════════════════════════════════════════════ */}
-      <footer className="site-footer">
-        <div className="footer-top">
-
-          {/* Brand */}
-          <div className="footer-brand">
-            <h3 className="footer-logo">Varaha<span>Crafts</span></h3>
-            <p>Connecting the artisans of Etikoppaka village with the world — one lacquer toy at a time.</p>
-            <div className="footer-socials">
-              <a href="#" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-              </a>
-              <a href="#" aria-label="Facebook">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-              </a>
-              <a href="#" aria-label="YouTube">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="5" width="20" height="14" rx="4"/><polygon points="10,9 15,12 10,15" fill="currentColor" stroke="none"/></svg>
-              </a>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div className="footer-col">
-            <h4>Explore</h4>
-            <ul>
-              <li><Link to="/products">All Products</Link></li>
-              <li><Link to="/products?category=toys">Lacquer Toys</Link></li>
-              <li><Link to="/products?category=home-decor">Home Décor</Link></li>
-              <li><Link to="/products?category=gifting">Gift Sets</Link></li>
-            </ul>
-          </div>
-
-          {/* Artisan */}
-          <div className="footer-col">
-            <h4>Artisans</h4>
-            <ul>
-              <li><Link to="/register">Join as Artisan</Link></li>
-              <li><Link to="/artisans">Meet the Makers</Link></li>
-              <li><Link to="/about">Our Story</Link></li>
-              <li><Link to="/gi-tag">About the GI Tag</Link></li>
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div className="footer-col">
-            <h4>Support</h4>
-            <ul>
-              <li><Link to="/faq">FAQs</Link></li>
-              <li><Link to="/shipping">Shipping & Returns</Link></li>
-              <li><Link to="/contact">Contact Us</Link></li>
-              <li><a href="mailto:hello@etikoppakacrafts.in">varahacraftsonline@gmail.com</a></li>
-            </ul>
-          </div>
-
-        </div>
-
-        {/* Footer Bottom */}
-        <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} VarahaCrafts. All rights reserved.</p>
-          <div className="footer-bottom-links">
-            <Link to="/privacy">Privacy Policy</Link>
-            <span>·</span>
-            <Link to="/terms">Terms of Use</Link>
-          </div>
-          <p className="footer-gi-note">
-            🏺 Proud to carry India's <strong>GI Tag</strong> — Etikoppaka Lacquerware, Andhra Pradesh
-          </p>
-        </div>
-      </footer>
+      
 
     </div>
   );

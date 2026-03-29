@@ -1,0 +1,263 @@
+/* ═══════════════════════════════════════════
+   MY ORDERS — Minimal & Professional
+   ═══════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap');
+
+:root {
+  --mo-bg:          #f5f5f3;
+  --mo-surface:     #ffffff;
+  --mo-border:      #e5e5e3;
+  --mo-border-mid:  #d4d4d0;
+
+  --mo-ink:         #1a1a18;
+  --mo-ink-2:       #4a4a45;
+  --mo-ink-3:       #8a8a82;
+
+  --mo-font: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mo-radius: 8px;
+  --mo-radius-lg: 12px;
+}
+
+/* ── LOADING ── */
+.mo-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.mo-spinner {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--mo-border);
+  border-top-color: var(--mo-ink);
+  border-radius: 50%;
+  animation: mo-spin 0.7s linear infinite;
+}
+
+@keyframes mo-spin { to { transform: rotate(360deg); } }
+
+/* ── ROOT ── */
+.mo-root {
+  max-width: 860px;
+  margin: 100px auto;
+  padding: 0 24px;
+  font-family: var(--mo-font);
+  -webkit-font-smoothing: antialiased;
+  
+}
+
+/* ── PAGE HEADER ── */
+.mo-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.mo-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--mo-ink);
+  letter-spacing: -0.4px;
+}
+
+.mo-count {
+  font-size: 13px;
+  color: var(--mo-ink-3);
+}
+
+/* ── EMPTY ── */
+.mo-empty {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.mo-empty p {
+  font-size: 14px;
+  color: var(--mo-ink-3);
+}
+
+/* ── LIST ── */
+.mo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── CARD ── */
+.mo-card {
+  background: var(--mo-surface);
+  border: 1px solid var(--mo-border);
+  border-radius: var(--mo-radius-lg);
+  overflow: hidden;
+  transition: border-color 0.15s;
+  animation: mo-fadein 0.25s ease-out both;
+}
+
+.mo-card:hover { border-color: var(--mo-border-mid); }
+
+@keyframes mo-fadein {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Card Head */
+.mo-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--mo-bg);
+  border-bottom: 1px solid var(--mo-border);
+}
+
+.mo-order-id {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--mo-ink);
+}
+
+.mo-order-label {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--mo-ink-3);
+}
+
+.mo-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mo-date {
+  font-size: 12px;
+  color: var(--mo-ink-3);
+}
+
+/* Status badges */
+.mo-badge {
+  font-size: 10.5px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 4px;
+  text-transform: capitalize;
+}
+
+.mo-badge--pending    { color: #92400e; background: #fffbeb; }
+.mo-badge--delivered  { color: #166534; background: #f0fdf4; }
+.mo-badge--cancelled  { color: #991b1b; background: #fef2f2; }
+.mo-badge--processing,
+.mo-badge--shipped    { color: #1d4ed8; background: #eff6ff; }
+
+/* Items */
+.mo-items {
+  padding: 4px 8px;
+}
+
+.mo-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.15s;
+  border-bottom: 1px solid var(--mo-border);
+}
+
+.mo-item:last-child { border-bottom: none; }
+.mo-item:hover { background: var(--mo-bg); }
+
+.mo-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--mo-border);
+  flex-shrink: 0;
+  background: var(--mo-bg);
+}
+
+.mo-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mo-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.mo-item-name {
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--mo-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 3px;
+}
+
+.mo-item-qty {
+  font-size: 12px;
+  color: var(--mo-ink-3);
+}
+
+.mo-item-price {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--mo-ink);
+  flex-shrink: 0;
+}
+
+/* Card Footer */
+.mo-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-top: 1px solid var(--mo-border);
+}
+
+.mo-tracking {
+  font-size: 12px;
+  color: var(--mo-ink-3);
+}
+
+.mo-total {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.mo-total-label {
+  font-size: 12px;
+  color: var(--mo-ink-3);
+}
+
+.mo-total-val {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--mo-ink);
+  letter-spacing: -0.3px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .mo-root { margin: 24px auto; }
+
+  .mo-card-head { flex-wrap: wrap; gap: 8px; }
+
+  .mo-item { gap: 10px; }
+
+  .mo-thumb { width: 44px; height: 44px; }
+
+  .mo-card-foot { flex-direction: column; align-items: flex-end; gap: 6px; }
+}
