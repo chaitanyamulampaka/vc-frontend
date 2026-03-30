@@ -1,6 +1,13 @@
 import { useEffect, useState, useRef } from "react";
 import instance from "../services/axiosInstance";
 
+const BASE_URL = "https://vc-backend-phpt.onrender.com";
+
+const getImage = (path) => {
+  if (!path) return "";
+  return path.startsWith("http") ? path : `${BASE_URL}${path}`;
+};
+
 /* ─── Inline styles as a JS object so this is a single-file deliverable ─── */
 const S = {
   "@import": `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');`,
@@ -76,7 +83,7 @@ function Cart() {
       <div style={styles.thumb}>
         {hasImg ? (
           <img
-            src={item.product_image}
+            src={getImage(item.product_image)}
             alt={item.product_name}
             style={styles.thumbImg}
             onError={() => setImgErrors(p => ({ ...p, [item.id]: true }))}

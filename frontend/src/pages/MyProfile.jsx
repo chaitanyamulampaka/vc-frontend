@@ -5,6 +5,13 @@ import "../styles/MyProfile.css";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../services/authService";
 
+const BASE_URL = "https://vc-backend-phpt.onrender.com";
+
+const getImage = (path) => {
+  if (!path) return "";
+  return path.startsWith("http") ? path : `${BASE_URL}${path}`;
+};
+
 const MyProfile = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [user, setUser] = useState(null);
@@ -268,7 +275,7 @@ const MyProfile = () => {
                             <div className="mp-thumb">
                               <img
                                 src={item.product_image
-                                  ? `http://127.0.0.1:8000${item.product_image}`
+                                  ? getImage(item.product_image)
                                   : "https://via.placeholder.com/56"}
                                 alt={item.product_name}
                               />

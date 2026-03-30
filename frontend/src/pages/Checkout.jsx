@@ -3,6 +3,13 @@ import instance from "../services/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import "../styles/Checkout.css";
 
+const BASE_URL = "https://vc-backend-phpt.onrender.com";
+
+const getImage = (path) => {
+  if (!path) return "";
+  return path.startsWith("http") ? path : `${BASE_URL}${path}`;
+};
+
 /* ---------------- Razorpay Loader ---------------- */
 const loadRazorpayScript = () => {
   return new Promise((resolve) => {
@@ -418,7 +425,7 @@ function Checkout() {
                     <div key={item.id} className="summary-item">
                       <div className="item-img-wrap">
                         {item.product_image ? (
-                          <img src={item.product_image} alt={item.product_name} className="item-img" />
+                          <img src={getImage(item.product_image)} alt={item.product_name} className="item-img" />
                         ) : (
                           <div className="item-img-placeholder">
                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">

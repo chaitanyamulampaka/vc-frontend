@@ -3,6 +3,13 @@ import { useNavigate } from "react-router-dom";
 import instance from "../services/axiosInstance";
 import "../styles/MyOrders.css";
 
+const BASE_URL = "https://vc-backend-phpt.onrender.com";
+
+const getImage = (path) => {
+  if (!path) return "";
+  return path.startsWith("http") ? path : `${BASE_URL}${path}`;
+};
+
 function MyOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -79,7 +86,7 @@ function MyOrders() {
                       <img
                         src={
                           item.product_image
-                            ? `http://127.0.0.1:8000${item.product_image}`
+                            ? getImage(item.product_image)
                             : "https://via.placeholder.com/52"
                         }
                         alt={item.product_name}

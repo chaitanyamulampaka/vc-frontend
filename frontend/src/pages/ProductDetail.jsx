@@ -28,6 +28,12 @@ const getDist = (reviews) => {
   reviews.forEach(r => { d[Math.round(r.rating)] = (d[Math.round(r.rating)] || 0) + 1; });
   return d;
 };
+const BASE_URL = "https://vc-backend-phpt.onrender.com";
+
+const getImage = (path) => {
+  if (!path) return "";
+  return path.startsWith("http") ? path : `${BASE_URL}${path}`;
+};
 
 /* ══════════════════════════════ */
 function ProductDetail() {
@@ -48,13 +54,8 @@ function ProductDetail() {
     instance.get(`products/${id}/`)
       .then(res => {
         setProduct(res.data);
-        if (res.data.img) setSelectedImage(res.data.img);
-      }).catch(console.log);
-
-    instance.get(`products/${id}/images/`)
-      .then(res => {
-        setImages(res.data);
-        if (res.data.length > 0) setSelectedImage(res.data[0].image);
+        setImages(res.data.images || []);
+        setSelectedImage(res.data.img || (res.data.images?.[0]?.image));
       }).catch(console.log);
 
     instance.get(`reviews/?product=${id}`)
@@ -130,7 +131,7 @@ function ProductDetail() {
         <div className="pd-gallery">
           <div className="pd-main">
             {discountPct > 0 && <div className="pd-off">{discountPct}% off</div>}
-            {selectedImage && <img src={selectedImage} alt={product.name} />}
+            {selectedImage && <img src={getImage(selectedImage)} alt={product.name} />}
           </div>
 
           {images.length > 1 && (
@@ -138,7 +139,7 @@ function ProductDetail() {
               {images.map(img => (
                 <img
                   key={img.id}
-                  src={img.image}
+                  src={getImage(img.image)}
                   alt=""
                   onClick={() => setSelectedImage(img.image)}
                   className={`pd-thumb${selectedImage === img.image ? " active" : ""}`}
@@ -270,7 +271,7 @@ function ProductDetail() {
                 {rev.images?.length > 0 && (
                   <div className="pd-rev-photos">
                     {rev.images.map(img => (
-                      <img key={img.id} src={img.image} alt="" className="pd-rev-photo" />
+                      <img key={img.id} src={getImage(img.image)} alt="" className="pd-rev-photo" />
                     ))}
                   </div>
                 )}

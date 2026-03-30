@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import instance from "../services/axiosInstance";
 import "../styles/ProductList.css"; // or wherever you place Products.css
 
+const BASE_URL = "https://vc-backend-phpt.onrender.com";
+
+const getImage = (path) => {
+  if (!path) return "";
+  return path.startsWith("http") ? path : `${BASE_URL}${path}`;
+};
+
 /* ── Stars ── */
 const Stars = ({ rating }) => (
   <div className="pc-stars">
@@ -49,7 +56,7 @@ function ProductCard({ product, animDelay = 0 }) {
         )}
 
         {product.img
-          ? <img src={product.img} alt={product.name} className="pc-img" />
+          ? <img src={getImage(product.img)} alt={product.name} className="pc-img" />
           : <div style={{ width: "100%", height: "100%", background: "var(--faint)" }} />
         }
 
