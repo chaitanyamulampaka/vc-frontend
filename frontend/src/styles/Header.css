@@ -228,7 +228,7 @@
     gap: 30px;
     box-shadow: -10px 0 40px rgba(0,0,0,0.1);
     transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 1001;
+    z-index: 2000;
     pointer-events: auto;
   }
   
@@ -245,7 +245,8 @@
     z-index: 1000;
   }
   
-  .mobile-overlay.open { opacity: 1; pointer-events: auto; }
+  /* Keep overlay visual, but allow clicks to pass through to menu links */
+  .mobile-overlay.open { opacity: 1; pointer-events: none; }
   
   .profile-dropdown {
     right: -40px; /* Adjust dropdown position on mobile so it doesn't go off screen */

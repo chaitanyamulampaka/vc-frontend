@@ -175,7 +175,6 @@ const Header = () => {
       {/* Mobile backdrop */}
       <div
         className={`mobile-overlay ${mobileOpen ? "open" : ""}`}
-        onClick={() => setMobileOpen(false)}
       />
     </>
   );

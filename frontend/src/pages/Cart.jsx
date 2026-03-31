@@ -125,7 +125,7 @@ function Cart() {
       </div>
       <h2 style={styles.emptyH2}>Your basket is empty</h2>
       <p style={styles.emptyP}>Discover our handcrafted wonders and fill it with love.</p>
-      <a href="/product" style={styles.emptyCta}>Explore Collection</a>
+      <a href="/products" style={styles.emptyCta}>Explore Collection</a>
     </div>
   );
 
