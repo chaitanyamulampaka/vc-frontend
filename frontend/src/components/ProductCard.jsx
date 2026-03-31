@@ -7,7 +7,9 @@ const BASE_URL = "https://vc-backend-phpt.onrender.com";
 
 const getImage = (path) => {
   if (!path) return "";
-  return path.startsWith("http") ? path : `${BASE_URL}${path}`;
+  if (path.startsWith("http://")) return path.replace("http://", "https://");
+  if (path.startsWith("https://")) return path;
+  return `${BASE_URL}${path}`;
 };
 
 /* ── Stars ── */

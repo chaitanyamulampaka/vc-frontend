@@ -66,7 +66,7 @@ export default function LandingPage() {
             <span className="badge-pulse"></span>
             Etikoppaka · Andhra Pradesh · GI Tagged
           </div>
-          <h1>5,000 Years of<br />Lacquer &amp; Light.</h1>
+          <h1>400 Years of<br />Lacquer &amp; Light.</h1>
           <p>Where ivory-soft wood meets living colour —<br />straight from artisan hands on the Varaha River.</p>
           <div className="hero-ctas">
             <Link to="/products" className="btn-primary">
@@ -124,7 +124,7 @@ export default function LandingPage() {
           <img
             src={heroImg} 
             alt="Artisan" />
-          <div className="spotlight-chip">Est. 3000 BCE</div>
+          <div className="spotlight-chip">Lacquer</div>
         </div>
         <div className="spotlight-body">
           <span className="eyebrow">Meet the Makers</span>

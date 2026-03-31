@@ -32,7 +32,9 @@ const BASE_URL = "https://vc-backend-phpt.onrender.com";
 
 const getImage = (path) => {
   if (!path) return "";
-  return path.startsWith("http") ? path : `${BASE_URL}${path}`;
+  if (path.startsWith("http://")) return path.replace("http://", "https://");
+  if (path.startsWith("https://")) return path;
+  return `${BASE_URL}${path}`;
 };
 
 /* ══════════════════════════════ */
@@ -213,12 +215,14 @@ function ProductDetail() {
       </div>
 
       {/* ── Description ── */}
-      {product.description && (
-        <div className="pd-desc">
-          <p className="pd-desc-lbl">About this piece</p>
-          <p className="pd-desc-text">{product.description}</p>
-        </div>
-      )}
+    {product.features?.length > 0 && (
+      <div className="pd-desc">
+        <p className="pd-desc-lbl">About this piece</p>
+        {product.features.map(f => (
+          <p key={f.id} className="pd-desc-text">• {f.title}</p>
+        ))}
+      </div>
+    )}
 
       {/* ── Reviews ── */}
       <div className="pd-reviews">

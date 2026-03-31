@@ -40,7 +40,7 @@
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
-  z-index: 1002;
+  z-index: 2000;
 }
 .logo-mark { font-size: 1.4rem; }
 .logo-text {
@@ -229,16 +229,17 @@
     box-shadow: -10px 0 40px rgba(0,0,0,0.1);
     transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 1001;
+    pointer-events: auto;
   }
   
   .header-nav.nav-open { right: 0; }
-  .header-nav a { font-size: 1.25rem; color: var(--ink, #2A363B); }
+  .header-nav a { font-size: 1.25rem; color: var(--ink, #2A363B); pointer-events: auto; cursor: pointer; }
   .header-nav a:not(.nav-pill)::after { display: none; }
   
   .mobile-overlay {
     display: block; position: fixed; inset: 0;
     background: rgba(42, 54, 59, 0.4);
-    backdrop-filter: blur(4px);
+    
     opacity: 0; pointer-events: none;
     transition: opacity 0.4s ease;
     z-index: 1000;
