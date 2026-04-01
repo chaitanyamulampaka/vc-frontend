@@ -6,8 +6,7 @@ A full-stack e-commerce platform built to empower rural artisans by enabling the
 
 ## 🌐 Live Demo
 
-🔗 https://vc-frontend-ggvpqpip7-chaitanyamulampaka-gmailcoms-projects.vercel.app/
-
+🔗 https://vc-frontend-5zirot7na-chaitanyamulampaka-gmailcoms-projects.vercel.app/
 ---
 
 ## 📌 Overview
@@ -215,16 +214,7 @@ CLOUDINARY_API_SECRET=your_secret
 
 ---
 
-## 💼 Resume Description
 
-**Varaha Crafts – Full Stack E-commerce Platform**
-
-* Built using React, Django REST Framework, and PostgreSQL
-* Implemented JWT authentication and Role-Based Access Control (RBAC)
-* Integrated Razorpay for payments and Shiprocket for logistics
-* Developed scalable REST APIs and responsive UI
-
----
 
 ## 👨‍💻 Author
 
